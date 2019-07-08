@@ -4,7 +4,11 @@ Open source modules for VCV Rack
 (other modules [here](https://github.com/AnimatedCircuits/ACRackModulesPreview))
 
 ## Modules
-*Folding* a wavefolding unit with 2 models
+|![](https://github.com/AnimatedCircuits/RackModules/blob/master/doc/Foldingv1.png?raw=true)|
+*Folding* a wavefolder unit with 2 models of fold|
+|---|---|
+
+Documentation can be found in the [wiki pages](https://github.com/AnimatedCircuits/RackModules/wiki)
 
 ## Releases
 Releases are on the [releases page](https://github.com/AnimatedCircuits/RackModules/releases).
