@@ -12,10 +12,13 @@ Releases are on the [releases page](https://github.com/AnimatedCircuits/RackModu
 
 ## Building
 Folow the instructions of the [VCV Rack manual](https://vcvrack.com/manual/Building.html).
-Switch to the `plugins/` directory then:
+Clone the repository and build the plugin
 
   ```
   git clone https://github.com/AnimatedCircuits/RackModules.git
   cd RackModules
   make
+  make dist
   ```
+
+then move the zip file to your rack plugin directory
