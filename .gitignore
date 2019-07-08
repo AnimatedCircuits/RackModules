@@ -1,0 +1,11 @@
+/build
+/doc
+/dist
+
+*.dll
+*.dylib
+*.so
+
+# VSC
+/.vscode
+
