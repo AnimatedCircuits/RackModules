@@ -6,9 +6,9 @@
 	"author": "Animated Circuits",
 	"license": "BSD-3-Clause",
 	"authorEmail": "animatedcircuits@gmail.com",
-	"pluginUrl": "https://github.com/AnimatedCircuits/RackModules/releases",
+	"pluginUrl": "https://github.com/AnimatedCircuits/RackModules",
 	"authorUrl": "https://www.animated-circuits.com",
-	"manualUrl": "",
+	"manualUrl": "https://github.com/AnimatedCircuits/RackModules/wiki",
 	"sourceUrl": "https://github.com/AnimatedCircuits/RackModules",
   	"changelogUrl": "",
 	"modules": [
