@@ -16,7 +16,10 @@
 			"slug": "ACFolding",
 			"name": "Folding",
 			"description": "Wavefolder",
-			"tags": ["Waveshaper"]
+			"tags": [
+				"Waveshaper",
+				"Polyphonic"
+			]
 		}
 	]
 }
