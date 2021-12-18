@@ -2,8 +2,8 @@
  * @file Folding.cpp
  * @author Animated Circuits
  * @brief  wave folding module
- * @version 1.0
- * @date July 2019
+ * @version 2.0
+ * @date December 2021
  * @copyright See License file
  */
 
@@ -20,6 +20,10 @@ Folding::Folding() : Module()
     configParam(OFFSET_PARAM, -2.5f, 2.5f, 0.f, "Folding Offset");
     configParam(OFFSET_CV_PARAM, 0.f, 20.f, 0.f, "CV Offset range", "%", 0.f, 10.f, 0.f);
     configParam(OFFSET_CV_BIPOLAR_PARAM, 0.f, 1.f, 0.f, "CV Offset bipolar");
+    configInput(IN_INPUT, "Signal");
+    configInput(OFFSET_CV_INPUT, "Folding Offset CV");
+    configInput(DEPTH_CV_INPUT, "Folding Depth CV");
+    configOutput(MAIN_OUTPUT, "Signal");
 }
 
 void Folding::process(const ProcessArgs &args)
