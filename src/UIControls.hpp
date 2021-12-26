@@ -2,8 +2,8 @@
  * @file	UIControls.hpp
  * @author	Animated Circuits
  * @brief	common UI controls
- * @version	1.0
- * @date July 2019
+ * @version	2.0
+ * @date December 2021
  * @copyright See License file
  */
 
@@ -20,12 +20,27 @@ struct BaseKnob : app::SvgKnob {
 		maxAngle = 0.83*M_PI;
 	}
 };
-struct BigWhiteKnob : BaseKnob {
+struct BaseBigKnob : BaseKnob {
+	widget::SvgWidget* fg;
+	widget::SvgWidget* bg;
+
+	BaseBigKnob() {
+		bg = new widget::SvgWidget;
+		fb->addChildBelow(bg, tw);
+
+		fg = new widget::SvgWidget;
+		fb->addChildAbove(fg, tw);
+		
+		bg->setSvg(Svg::load(asset::plugin(pluginInstance, "res/Knob_Ring_Light_42_bg.svg")));
+		fg->setSvg(Svg::load(asset::plugin(pluginInstance, "res/Knob_Cap_Light_42_fg.svg")));	
+	}
+};
+struct BigWhiteKnob : BaseBigKnob {
 	BigWhiteKnob() {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Knob_White_Light_42.svg")));
 	}
 };
-struct BigBlueKnob : BaseKnob {
+struct BigBlueKnob : BaseBigKnob {
 	BigBlueKnob() {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Knob_Blue_Light_42.svg")));
 	}
