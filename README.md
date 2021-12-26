@@ -1,7 +1,7 @@
 # RackModules
 Open source modules for VCV Rack
 
-(other modules [here](https://github.com/AnimatedCircuits/ACRackModulesPreview))
+(other modules [here](https://github.com/AnimatedCircuits/ACRackModulesPreview) -- Rack v1)
 
 ## Modules
 |![](https://github.com/AnimatedCircuits/RackModules/blob/master/doc/Foldingv1.png?raw=true)|
