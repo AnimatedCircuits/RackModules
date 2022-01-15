@@ -2,8 +2,8 @@
  * @file	UIControls.hpp
  * @author	Animated Circuits
  * @brief	common UI controls
- * @version	2.0
- * @date December 2021
+ * @version	2.1
+ * @date January 2022
  * @copyright See License file
  */
 
@@ -45,9 +45,38 @@ struct BigBlueKnob : BaseBigKnob {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Knob_Blue_Light_42.svg")));
 	}
 };
+struct BigGreyKnob : BaseBigKnob {
+	BigGreyKnob() {
+		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Knob_Grey_Light_42.svg")));
+	}
+};
 struct SmallBlackKnob : BaseKnob {
 	SmallBlackKnob() {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Knob_Black_Light_21.svg")));
+	}
+};
+/**
+ * Switches
+ */
+struct LinExpSwitch : app::SvgSwitch {
+	LinExpSwitch() {
+		shadow->opacity = 0.0;
+		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Switch_Blue_LinExp_LinOn_Light.svg")));
+		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Switch_Blue_LinExp_ExpOn_Light.svg")));
+	}
+};
+struct TriSineSwitch : app::SvgSwitch {
+	TriSineSwitch() {
+		shadow->opacity = 0.0;
+		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Switch_Blue_TriSine_TriOn_Light.svg")));
+		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Switch_Blue_TriSine_SineOn_Light.svg")));
+	}
+};
+struct BipolarSwitch : app::SvgSwitch {
+	BipolarSwitch() {
+		shadow->opacity = 0.0;
+		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Switch_Grey_Bi_Off.svg")));
+		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Switch_Grey_Bi_On.svg")));
 	}
 };
 /**

@@ -11,6 +11,7 @@ LDFLAGS +=
 
 # Add .cpp files to the build
 SOURCES += $(wildcard src/Folding/*.cpp)
+SOURCES += $(wildcard src/LFold/*.cpp)
 SOURCES += $(wildcard src/*.cpp)
 
 
