@@ -8,7 +8,14 @@
  */
 
 #include "LFold.hpp"
+#include "../DarkModeUtils.hpp"
 #include "../UIControls.hpp"
+
+#ifdef USING_CARDINAL_NOT_RACK
+static bool darkMode = true;
+#else
+static bool darkMode = false;
+#endif
 
 using namespace UIControls;
 
@@ -18,12 +25,28 @@ struct LFoldWidget: ModuleWidget {
 
 	LFoldWidget(LFold *module) : ModuleWidget(module)
 	{
-		setPanel(SVG::load(asset::plugin(pluginInstance, "res/LFoldLight.svg")));
+		std::shared_ptr<Svg> svg = SVG::load(asset::plugin(pluginInstance, "res/LFoldLight.svg"));
+		setPanel(svg);
 
-		// addChild(createWidget<ScrewSilver>(Vec(15, 0)));
-		addChild(createWidget<ScrewSilver>(Vec(box.size.x-30, 0)));
-		addChild(createWidget<ScrewSilver>(Vec(15, 365)));
-		// addChild(createWidget<ScrewSilver>(Vec(box.size.x-30, 365)));
+		if (darkMode) {
+			// make sure to only invert colors once
+			static bool inverted = false;
+			if (!inverted) {
+				inverted = true;
+				invertColorsOfSVG(svg->handle);
+			}
+			// use black screws
+			// addChild(createWidget<ScrewBlack>(Vec(15, 0)));
+			addChild(createWidget<ScrewBlack>(Vec(box.size.x-30, 0)));
+			addChild(createWidget<ScrewBlack>(Vec(15, 365)));
+			// addChild(createWidget<ScrewBlack>(Vec(box.size.x-30, 365)));
+		} else {
+			// default light mode
+			// addChild(createWidget<ScrewSilver>(Vec(15, 0)));
+			addChild(createWidget<ScrewSilver>(Vec(box.size.x-30, 0)));
+			addChild(createWidget<ScrewSilver>(Vec(15, 365)));
+			// addChild(createWidget<ScrewSilver>(Vec(box.size.x-30, 365)));
+		}
 
 		addParam(createParamCentered<BigGreyKnob>(Vec(box.size.x/2.f, 76.f), module, LFold::FREQ_PARAM));
 
