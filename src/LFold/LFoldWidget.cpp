@@ -8,6 +8,7 @@
  */
 
 #include "LFold.hpp"
+#include "../DarkModeUtils.hpp"
 #include "../UIControls.hpp"
 
 using namespace UIControls;
@@ -15,15 +16,51 @@ using namespace UIControls;
 /// No Specific UI controls
 
 struct LFoldWidget: ModuleWidget { 
+	std::shared_ptr<Svg> darkSvg;
+	std::shared_ptr<Svg> normalSvg;
+	ScrewBlack* blackScrews[2];
+	ScrewSilver* silverScrews[2];
+#ifdef USING_CARDINAL_NOT_RACK
+	bool darkMode = settings::preferDarkPanels;
+#else
+	bool darkMode = false;
+#endif
 
 	LFoldWidget(LFold *module) : ModuleWidget(module)
 	{
-		setPanel(SVG::load(asset::plugin(pluginInstance, "res/LFoldLight.svg")));
+		normalSvg = SVG::load(asset::plugin(pluginInstance, "res/LFoldLight.svg"));
+		darkSvg = SVG::load(asset::plugin(pluginInstance, "res/./LFoldLight.svg")); // forcing different svg handle
 
-		// addChild(createWidget<ScrewSilver>(Vec(15, 0)));
-		addChild(createWidget<ScrewSilver>(Vec(box.size.x-30, 0)));
-		addChild(createWidget<ScrewSilver>(Vec(15, 365)));
-		// addChild(createWidget<ScrewSilver>(Vec(box.size.x-30, 365)));
+		// invert for dark colors once
+		static bool inverted = false;
+		if (!inverted) {
+			inverted = true;
+			invertColorsOfSVG(darkSvg->handle);
+		}
+
+		if (darkMode) {
+			// use black panel
+			setPanel(darkSvg);
+		} else {
+			// use light panel
+			setPanel(normalSvg);
+		}
+
+		addChild(blackScrews[0] = createWidget<ScrewBlack>(Vec(box.size.x-30, 0)));
+		addChild(blackScrews[1] = createWidget<ScrewBlack>(Vec(15, 365)));
+
+		addChild(silverScrews[0] = createWidget<ScrewSilver>(Vec(box.size.x-30, 0)));
+		addChild(silverScrews[1] = createWidget<ScrewSilver>(Vec(15, 365)));
+
+		if (darkMode) {
+			// use black screws
+			silverScrews[0]->hide();
+			silverScrews[1]->hide();
+		} else {
+			// use silver screws
+			blackScrews[0]->hide();
+			blackScrews[1]->hide();
+		}
 
 		addParam(createParamCentered<BigGreyKnob>(Vec(box.size.x/2.f, 76.f), module, LFold::FREQ_PARAM));
 
@@ -40,6 +77,32 @@ struct LFoldWidget: ModuleWidget {
 		addOutput(createOutput<LightPort>(Vec(47, 298), module, LFold::MAIN_OUTPUT));
 		addOutput(createOutput<LightPort>(Vec(47, 330), module, LFold::LFOLD_OUTPUT));
 	}
+
+#ifdef USING_CARDINAL_NOT_RACK
+	void step() override {
+		if (darkMode != settings::preferDarkPanels) {
+			darkMode = settings::preferDarkPanels;
+			if (darkMode) {
+				// use black panel
+				setPanel(darkSvg);
+				// use black screws
+				silverScrews[0]->hide();
+				silverScrews[1]->hide();
+				blackScrews[0]->show();
+				blackScrews[1]->show();
+			} else {
+				// use light panel
+				setPanel(normalSvg);
+				// use silver screws
+				blackScrews[0]->hide();
+				blackScrews[1]->hide();
+				silverScrews[0]->show();
+				silverScrews[1]->show();
+			}
+		}
+		ModuleWidget::step();
+	}
+#endif
 };
 
 Model *model_AC_LFold = createModel<LFold, LFoldWidget>(SlugLFold);
